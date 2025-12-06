@@ -63,7 +63,7 @@ Make sure you have installed:
 
 - **Java 17** or higher
 - **Maven 3.8+**
-- **PostgreSQL** database
+- **H2** database
 - **Redis** server
 - Optional: **Docker** (for PostgreSQL and Redis containers)
 
@@ -102,23 +102,21 @@ http://localhost:8084/h2-console/
 
 ## Project Limitations
 
-1. **Email sending**
-  - Password reset emails are sent using SMTP, but in development they may not reach real inboxes unless proper credentials are configured.
-  - No email template engine is used (plain text or simple HTML only).
-
-2. **Redis usage**
+1. **Redis usage**
   - Redis is currently only used for tracking failed login attempts.
   - No caching of other entities (books, clients, orders) implemented.
 
-3. **Frontend**
+2. **Frontend**
   - No frontend is provided; the project exposes REST endpoints only.
   - Testing must be done via Swagger UI, Postman, or custom clients.
-  - 
-4. **Order and inventory management**
+    
+3. **Order and inventory management**
   - Orders are created and stored but no advanced inventory management is implemented.
+  - Order status tracking is basic; no detailed history or shipment tracking implemented.
+  - No advanced inventory management is implemented (e.g., stock levels, automatic stock deduction, or notifications for low stock).  
   - No payment gateway integration.
 
-5. **Security**
+4. **Security**
   - Role-based access is functional, but finer-grained permissions (e.g., per-book ownership) are not fully implemented.
 
 
