@@ -1,4 +1,131 @@
+# Java Spring Boot Book Store Project
+
+This project is a **Book Store Service** implemented using **Java 17** and **Spring Boot 3**, demonstrating a full-stack backend application with best practices and modular architecture.
+
+The project covers:
+
+- **MVC architecture** with clear separation of concerns.
+- **Spring Data JPA** for database operations with PostgreSQL.
+- **Spring Security** for authentication and authorization.
+- **JWT-based login** and **role-based access control (RBAC)** with roles: ADMIN, EMPLOYEE, CUSTOMER.
+- **Session timeouts and limits** (for non-JWT implementations).
+- **URL-based security** using SecurityFilterChain.
+- **Custom security expressions** (e.g., checking ownership of an entity).
+- **Refresh tokens** support for long-lived authentication sessions.
+- **Employee functionalities**: managing books, orders, and blocking/unblocking customers.
+- **Customer functionalities**: browsing books, placing orders, managing personal accounts.
+- **Admin functionalities**: full access to all system resources, including managing employees, clients, books, and orders.
+- **Global exception handling** via `@ControllerAdvice` for consistent error responses.
+- **Logging** implemented using AOP (Aspect-Oriented Programming) to track important operations.
+- **Swagger** integration for API documentation and testing.
+- **DTOs, validation, and error handling** for robust API responses.
+- **Password hashing using BCrypt** (`BCryptPasswordEncoder`).
+- **Lombok** for boilerplate reduction and **ModelMapper** for DTO mapping.
+- **Redis integration** for temporary login attempt tracking (brute-force protection).
+- **Data validation** for incoming requests using `@Valid` and custom validators.
+
+You can jump directly to the project details here: [Book Store Project](#book-store-spring-project)
+
+---
+
+## .env example
+
+```dotenv
+# Server configuration
+SERVER_PORT=8084
+
+# JWT configuration
+JWT_SECRET=uQфва
+JWT_EXPIRATION_MS=86400000  # 24 hours in milliseconds
+
+# OAuth2 (Google) configuration
+GOOGLE_CLIENT_ID=6фвыаыфваpps.googleusercontent.com
+GOOGLE_CLIENT_SECRET=фываыфваыфв3LVjQ
+
+# Email configuration
+MAIL_USERNAME=emailveify@gmail.com
+MAIL_PASSWORD=xвфыавыфафww
+
+# Redis configuration
+REDIS_HOST=localhost
+REDIS_PORT=6379
+
+```
+
+---
+
+
+## Setup & Run
+
+### 1. Prerequisites
+
+Make sure you have installed:
+
+- **Java 17** or higher
+- **Maven 3.8+**
+- **PostgreSQL** database
+- **Redis** server
+- Optional: **Docker** (for PostgreSQL and Redis containers)
+
+---
+### 2. Clone the repository
+
+```bash
+git clone https://github.com/your-username/bookstore-spring-project.git
+cd bookstore-spring-project
+```
+---
+### 3.Build and run the project
+mvn clean install
+mvn spring-boot:run
+---
+### 4.Access Swagger UI
+```
+http://localhost:8084/swagger-ui/index.html
+```
+![swagger](readme-images/img_1.png)
+---
+### 5.Access H2 db
+```
+http://localhost:8084/h2-console/
+```
+![h2-login](readme-images/img.png)
+
+---
+
+### Forgot Password Endpoint
+**POST** `/auth/forgot-password`
+
+![forgot-password](readme-images/img_2.png)
+
+---
+
+## Project Limitations
+
+1. **Email sending**
+  - Password reset emails are sent using SMTP, but in development they may not reach real inboxes unless proper credentials are configured.
+  - No email template engine is used (plain text or simple HTML only).
+
+2. **Redis usage**
+  - Redis is currently only used for tracking failed login attempts.
+  - No caching of other entities (books, clients, orders) implemented.
+
+3. **Frontend**
+  - No frontend is provided; the project exposes REST endpoints only.
+  - Testing must be done via Swagger UI, Postman, or custom clients.
+  - 
+4. **Order and inventory management**
+  - Orders are created and stored but no advanced inventory management is implemented.
+  - No payment gateway integration.
+
+5. **Security**
+  - Role-based access is functional, but finer-grained permissions (e.g., per-book ownership) are not fully implemented.
+
+
+> I hope these limitations are considered acceptable for a 15-hour task/project demonstration.
+
 # Book Store. Spring Project
+
 
 The purpose of this task is to check your knowledge and understanding in Java and Spring.
 
