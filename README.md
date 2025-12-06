@@ -118,6 +118,7 @@ http://localhost:8084/h2-console/
 
 4. **Security**
   - Role-based access is functional, but finer-grained permissions (e.g., per-book ownership) are not fully implemented.
+  - Role-based access is functional, but **multi-role support for a single user is not implemented**.
 
 
 > I hope these limitations are considered acceptable for a 15-hour task/project demonstration.
