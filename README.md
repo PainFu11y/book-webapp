@@ -1,6 +1,6 @@
 # Java Spring Boot Book Store Project
 
-This project is a **Book Store Service** implemented using **Java 17** and **Spring Boot 3**, demonstrating a full-stack backend application with best practices and modular architecture.
+This project is a **Book Store Service** implemented using **Java 17** and **Spring Boot 3**, demonstrating a backend application with best practices and modular architecture.
 
 The project covers:
 
