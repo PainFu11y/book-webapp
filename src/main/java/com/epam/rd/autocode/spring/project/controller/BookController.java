@@ -1,9 +1,14 @@
 package com.epam.rd.autocode.spring.project.controller;
 
 import com.epam.rd.autocode.spring.project.dto.BookDTO;
+import com.epam.rd.autocode.spring.project.dto.request.BookFilterRequest;
+import com.epam.rd.autocode.spring.project.mapper.BookMapper;
 import com.epam.rd.autocode.spring.project.service.BookService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +21,7 @@ import java.util.List;
 public class BookController {
 
     private final BookService bookService;
+    private final BookMapper bookMapper;
 
     @GetMapping
     @Operation(summary = "Get all books")
@@ -38,7 +44,8 @@ public class BookController {
 
     @PutMapping("/{name}")
     @Operation(summary = "Update book by name")
-    public BookDTO updateBook(@PathVariable String name, @Valid @RequestBody BookDTO bookDTO) {
+    public BookDTO updateBook(@PathVariable String name,
+                              @Valid @RequestBody BookDTO bookDTO) {
         return bookService.updateBookByName(name, bookDTO);
     }
 
@@ -48,4 +55,14 @@ public class BookController {
         bookService.deleteBookByName(name);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/filter")
+    @Operation(summary = "Get filtered list of books")
+    public Page<BookDTO> getFilteredBooks(
+            @ModelAttribute BookFilterRequest filter,
+            @PageableDefault(size = 10) Pageable pageable) {
+        return bookService.findAllFiltered(filter, pageable)
+                .map(bookMapper::toDTO);
+    }
+
 }

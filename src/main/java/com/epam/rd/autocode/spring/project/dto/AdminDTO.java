@@ -2,9 +2,12 @@ package com.epam.rd.autocode.spring.project.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import lombok.Data;
+import lombok.*;
 
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class AdminDTO {
 
     @Email

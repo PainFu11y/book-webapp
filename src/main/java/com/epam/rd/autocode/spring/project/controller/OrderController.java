@@ -45,9 +45,14 @@ public class OrderController {
         }
 
         @Operation(summary = "Confirm a client order")
-        @PostMapping("/employee/{orderId}")
+        @PostMapping("/employee/confirm/{orderId}")
         public void confirmOrder(@PathVariable Long orderId) {
             orderService.confirmOrder(orderId);
+        }
+        @Operation(summary = "Cancel a client order")
+        @PostMapping("/employee/cancel/{orderId}")
+        public void cancelOrder(@PathVariable Long orderId) {
+            orderService.cancelOrder(orderId);
         }
 
 }

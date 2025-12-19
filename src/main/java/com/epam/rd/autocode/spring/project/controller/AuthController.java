@@ -1,9 +1,9 @@
 package com.epam.rd.autocode.spring.project.controller;
 
-import com.epam.rd.autocode.spring.project.dto.request.ForgotPasswordRequestDTO;
-import com.epam.rd.autocode.spring.project.dto.request.ResetPasswordRequestDTO;
+import com.epam.rd.autocode.spring.project.dto.request.ForgotPasswordRequest;
+import com.epam.rd.autocode.spring.project.dto.request.ResetPasswordRequest;
 import com.epam.rd.autocode.spring.project.enums.UserRole;
-import com.epam.rd.autocode.spring.project.model.request.AuthRequest;
+import com.epam.rd.autocode.spring.project.dto.request.AuthRequest;
 import com.epam.rd.autocode.spring.project.service.impl.auth.AuthService;
 import com.epam.rd.autocode.spring.project.service.PasswordResetService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -46,14 +46,14 @@ public class AuthController {
 
     @PostMapping("/forgot-password")
     @Operation(summary = "Send password reset token")
-    public ResponseEntity<?> forgotPassword(@RequestBody @Valid ForgotPasswordRequestDTO dto) throws MessagingException {
+    public ResponseEntity<?> forgotPassword(@RequestBody @Valid ForgotPasswordRequest dto) throws MessagingException {
         passwordResetService.sendResetToken(dto);
         return ResponseEntity.ok("Reset token sent to email");
     }
 
     @PostMapping("/reset-password")
     @Operation(summary = "Reset password")
-    public ResponseEntity<?> resetPassword(@RequestBody @Valid ResetPasswordRequestDTO dto) {
+    public ResponseEntity<?> resetPassword(@RequestBody @Valid ResetPasswordRequest dto) {
         passwordResetService.resetPassword(dto);
         return ResponseEntity.ok("Password has been reset successfully");
     }

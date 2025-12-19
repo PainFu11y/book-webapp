@@ -23,6 +23,8 @@ The project covers:
 - **Lombok** for boilerplate reduction and **ModelMapper** for DTO mapping.
 - **Redis integration** for temporary login attempt tracking (brute-force protection).
 - **Data validation** for incoming requests using `@Valid` and custom validators.
+- **Specification-based filtering** for complex book search queries.
+- **Pagination and sorting validation** with safe property whitelisting.
 
 You can jump directly to the project details here: [Book Store Project](#book-store-spring-project)
 
@@ -263,25 +265,3 @@ Ensure implementation of the following:
 
 <img src="img/DTO.png" alt="DTO" width="600"/>
 
-## Would be nice
-
-Consider the following additional features:
-
-- Incorporate `Logging` for comprehensive system monitoring.
-- Implement `Pagination and Sorting` for enhanced data presentation.
-
-## Recommendations
-
-> Use wrapper classes (like Long, Integer, etc.) instead of primitive types whenever possible.
-
-- Utilize `Lombok` for streamlined Java code.
-- Use `ModelMapper` for easy mapping between objects.
-- Utilize `Thymeleaf` for HTML templating.
-- Explore the `test` folder to execute provided test cases for your solution.
-- Refer to the `main\resources\sql` folder for SQL scripts to initialize data.
-
-## Special message
-
-- Make the most of the time available.
-  While we understand you may not cover all the points,
-  aim to accomplish as much as possible within the given duration of 15 hours.

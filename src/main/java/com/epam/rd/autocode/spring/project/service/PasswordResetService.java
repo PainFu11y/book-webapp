@@ -1,10 +1,10 @@
 package com.epam.rd.autocode.spring.project.service;
 
-import com.epam.rd.autocode.spring.project.dto.request.ForgotPasswordRequestDTO;
-import com.epam.rd.autocode.spring.project.dto.request.ResetPasswordRequestDTO;
+import com.epam.rd.autocode.spring.project.dto.request.ForgotPasswordRequest;
+import com.epam.rd.autocode.spring.project.dto.request.ResetPasswordRequest;
 import jakarta.mail.MessagingException;
 
 public interface PasswordResetService {
-    void sendResetToken(ForgotPasswordRequestDTO dto) throws MessagingException;
-    void resetPassword(ResetPasswordRequestDTO dto);
+    void sendResetToken(ForgotPasswordRequest dto) throws MessagingException;
+    void resetPassword(ResetPasswordRequest dto);
 }

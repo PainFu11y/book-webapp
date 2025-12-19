@@ -4,6 +4,7 @@ import com.epam.rd.autocode.spring.project.dto.request.create.CreateOrderDTO;
 import com.epam.rd.autocode.spring.project.enums.OrderStatus;
 import com.epam.rd.autocode.spring.project.enums.UserRole;
 import com.epam.rd.autocode.spring.project.exception.AccessDeniedException;
+import com.epam.rd.autocode.spring.project.exception.InsufficientFundsException;
 import com.epam.rd.autocode.spring.project.exception.NotFoundException;
 import com.epam.rd.autocode.spring.project.mapper.OrderMapper;
 import com.epam.rd.autocode.spring.project.dto.OrderDTO;
@@ -18,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -95,6 +97,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     // Submit order by Client
+    @Transactional
     public void submitOrder(Long orderId) {
         String clientEmail = getCurrentUserEmail();
         Order order = orderRepository.findById(orderId)
@@ -103,6 +106,17 @@ public class OrderServiceImpl implements OrderService {
         if (!order.getClient().getEmail().equals(clientEmail)) {
             throw new AccessDeniedException("You can't submit someone else's order");
         }
+        Optional<Client> byEmail = clientRepository.findByEmail(clientEmail);
+        if(!byEmail.isPresent()) {
+            throw new NotFoundException("Client not found");
+        }
+        Client client = byEmail.get();
+
+        if(client.getBalance().compareTo(order.getPrice()) < 0){
+           throw new InsufficientFundsException("Insufficient funds");
+        }
+
+       client.setBalance(client.getBalance().subtract(order.getPrice()));
 
         order.setOrderStatus(OrderStatus.SUBMITTED);
         orderRepository.save(order);
@@ -116,6 +130,19 @@ public class OrderServiceImpl implements OrderService {
         order.setOrderStatus(OrderStatus.CONFIRMED);
         orderRepository.save(order);
     }
+    @Transactional
+    public void cancelOrder(Long orderId) {
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new NotFoundException("Order not found"));
+
+        Client client = order.getClient();
+        client.setBalance(client.getBalance().add(order.getPrice()));
+
+        order.setOrderStatus(OrderStatus.CANCELED);
+        orderRepository.save(order);
+    }
+
+
 
 
     private String getCurrentUserEmail() {

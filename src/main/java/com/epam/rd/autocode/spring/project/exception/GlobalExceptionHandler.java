@@ -118,4 +118,13 @@ public class GlobalExceptionHandler {
         );
     }
 
+    @ExceptionHandler(InsufficientFundsException.class)
+    public ResponseEntity<Map<String, Object>> handleInsufficientFunds(InsufficientFundsException ex) {
+        return new ResponseEntity<>(
+                buildBody(HttpStatus.BAD_REQUEST, "Insufficient funds to complete the transaction",
+                        ex.getMessage()),
+                HttpStatus.BAD_REQUEST
+        );
+    }
+
 }

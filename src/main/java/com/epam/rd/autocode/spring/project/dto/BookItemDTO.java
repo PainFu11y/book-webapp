@@ -8,7 +8,6 @@ import lombok.*;
 @AllArgsConstructor
 public class BookItemDTO {
 
-
     private BookDTO book;
 
     @Min(value = 1, message = "Quantity must be at least 1")

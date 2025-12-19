@@ -53,6 +53,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/auth/login/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/forgot-password").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/reset-password").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/books", "/books/filter").permitAll()
                         .requestMatchers(
                                 "/oauth2/**",
                                 "/login/oauth2/**",
@@ -83,7 +84,7 @@ public class SecurityConfig {
 
 
                         // USER
-                        .requestMatchers(HttpMethod.GET,"/books", "/books/{name}").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/books/{name}").authenticated()
 
                         //ADMIN
                         .requestMatchers("/**").hasRole(UserRole.ADMIN.name())

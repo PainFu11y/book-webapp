@@ -5,9 +5,15 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Data
-public class ForgotPasswordRequestDTO {
+public class ResetPasswordRequest {
 
     @Email(message = "Invalid email format")
     @NotBlank(message = "Email is required")
     private String email;
+
+    @NotBlank(message = "Token is required")
+    private String token;
+
+    @NotBlank(message = "New password is required")
+    private String newPassword;
 }

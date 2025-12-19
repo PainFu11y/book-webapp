@@ -1,8 +1,8 @@
 package com.epam.rd.autocode.spring.project.service.impl.auth;
 
 
-import com.epam.rd.autocode.spring.project.dto.request.ForgotPasswordRequestDTO;
-import com.epam.rd.autocode.spring.project.dto.request.ResetPasswordRequestDTO;
+import com.epam.rd.autocode.spring.project.dto.request.ForgotPasswordRequest;
+import com.epam.rd.autocode.spring.project.dto.request.ResetPasswordRequest;
 import com.epam.rd.autocode.spring.project.enums.UserRole;
 import com.epam.rd.autocode.spring.project.exception.NotFoundException;
 import com.epam.rd.autocode.spring.project.model.*;
@@ -35,7 +35,7 @@ public class PasswordResetServiceImpl implements PasswordResetService {
 
     @Override
     @Transactional
-    public void sendResetToken(ForgotPasswordRequestDTO dto) throws MessagingException {
+    public void sendResetToken(ForgotPasswordRequest dto) throws MessagingException {
         Long userId;
         UserRole role;
 
@@ -72,7 +72,7 @@ public class PasswordResetServiceImpl implements PasswordResetService {
 
     @Override
     @Transactional
-    public void resetPassword(ResetPasswordRequestDTO dto) {
+    public void resetPassword(ResetPasswordRequest dto) {
         PasswordResetToken token = tokenRepo.findByToken(dto.getToken())
                 .orElseThrow(() -> new NotFoundException("Invalid token"));
 
